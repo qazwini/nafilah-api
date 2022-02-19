@@ -6,10 +6,19 @@ require('dotenv').config()
 const app = express();
 app.use(express.json());
 
-// Set up routes
-app.use('/api/prayers/', prayersRoutes);
+// Display routes
+app.get('/', (request, response) => {
+    let routes = {
+        prayers: "/prayers/",
+        url: request.baseUrl + request.path,
+    };
+    return response.json(routes);
+});
 
-app.get('/api/meow/', (request, response) => {
+// Set up routes
+app.use('/prayers/', prayersRoutes);
+
+app.get('/meow/', (request, response) => {
     return response.send("nya~");
 })
 
