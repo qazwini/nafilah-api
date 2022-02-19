@@ -19,8 +19,12 @@ app.get('/', (request, response) => {
 app.use('/prayers/', prayersRoutes);
 
 app.get('/meow/', (request, response) => {
-    return response.send("nya~");
+    return response.send('nya~');
 })
+
+function unknownEndpoint(request, response) {
+    response.status(404).send({ error: 'unknown endpoint' });
+}
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
