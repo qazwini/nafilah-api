@@ -9,10 +9,7 @@ router.get('/', (request, response) => {
         return response.send("no prayers for today :(\ncome back in rajab");
     }
 
-    return response.json({
-        prayers: data,
-        url: request.baseUrl + request.path,
-    });
+    return response.json(data.map((prayer) => ({...prayer, url: `/prayers/${prayer.id}/`})));
 });
 
 // Return prayers for hijri date
@@ -21,14 +18,7 @@ router.get('/:month/:day/', (request, response) => {
     const day = Number(request.params.day);
     const data = nafilahs.getPrayersForDate(month, day);
 
-    if (!data.length) {
-        return response.status(404).send({ error: "resource not found" });
-    }
-
-    return response.json({
-        prayers: data,
-        url: request.baseUrl + request.path,
-    });
+    return response.json(data.map((prayer) => ({...prayer, url: `/prayers/${prayer.id}/`})));
 });
 
 // Return prayer with id
@@ -39,10 +29,12 @@ router.get('/:id/', (request, response) => {
     if (!prayer) {
         return response.status(404).send({ error: "resource not found" });
     }
+    
+    const url = `/prayers/${prayer.id}/`;
 
     return response.json({
         ...prayer,
-        url: request.baseUrl + request.path,
+        url: url,
     });
 });
 
