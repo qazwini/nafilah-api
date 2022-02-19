@@ -1,0 +1,5 @@
+let APPLICATION_ROOT = __dirname
+
+let DATABASE_FILENAME = `${APPLICATION_ROOT}/db/db.sqlite3`
+
+module.exports = { APPLICATION_ROOT, DATABASE_FILENAME };
