@@ -15,7 +15,7 @@ function getTonightPrayers() {
 function getPrayerWithId(id) {
     const prayer = db.query("SELECT * FROM nafilahs WHERE id = ?", [id]);
     if (!prayer.length) {
-        return undefined;
+        return null;
     }
     return prayer[0];
 }
